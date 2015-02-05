@@ -10,21 +10,21 @@ def add(timesheet, alias, hours=False, note=False):
         task_id = config.get(alias, 'Task')
     if not alias:
         if not hours:
-            hours = get_int( "Didn't get that - input the number of hours: "))
+            hours = get_int("How many hours to enter? ")
         if not note:
-            note = raw_input("Leave a note? (optional) ")
+            note = get_int("Leave a note? (optional) ")
         for key, value in enumerate(today['projects']):
             print key + 1, value['name']
 
-        client_selection = get_int("Select a project: ", "Didn't get that - select the number next to the project name: ")
+        client_selection = int(get_int("Select a project: "))
         client = today['projects'][client_selection-1]
         client_id = client['id']
 
         for key, task in enumerate(client['tasks']):
             print key + 1, task['name']
 
-        task_selection = get_int("Select a task: ", "Didn't get that - select the number next to the task name: ")
-        task = client['tasks'][task_seletion-1]
+        task_selection = int(get_int("Select a task: "))
+        task = client['tasks'][task_selection-1]
         task_id = task['id']
 
         #set_alias()

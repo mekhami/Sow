@@ -43,9 +43,13 @@ def get_timesheet():
     harvest = Harvest(URI, USERNAME, PASSWORD)
     return harvest 
 
-def get_int(prompt1, prompt2):
-    try:
-        answer = raw_input(prompt1)
-    except ValueError:
-        answer = get_int(prompt2)
+def get_int(prompt):
+    parsed = False
+    while parsed == False:
+        try:
+            answer = raw_input(prompt)
+            parsed = True
+        except ValueError:
+            print 'Invalid value!'
+
     return answer
