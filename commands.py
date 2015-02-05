@@ -7,11 +7,10 @@ config = ConfigParser.RawConfigParser()
 config.read(os.path.expanduser('~/.harvconfig'))
 
 
-STATUS_TASK_FORMAT = '''{indicator}   Project:    {entry.project_name}
-    Task:       {entry.task_name}
-    ID:         {entry.id}
-    Notes:      {entry.notes}
-    Time:       {hours}:{minutes:02d}
+STATUS_TASK_FORMAT = '''{indicator}   Project:    {client}
+    Task:       {task}
+    Notes:      {note}
+    Time:       {hours}
     '''
 
 def add(timesheet, alias, hours=False, note=False):
@@ -38,13 +37,22 @@ def add(timesheet, alias, hours=False, note=False):
         task = client['tasks'][task_selection-1]
         task_id = task['id']
 
-        set_alias(client['name'], client_id, task_id)
+        set_alias(client['name'], client_id, task['name'], task_id)
 
     data = {"notes": note, "project_id":client_id, "hours":hours, "task_id":task_id}
     timesheet.add(data)
-    print "Added your entry."
+    print "Your entry has been saved."
+    print str.format(
+            STATUS_TASK_FORMAT,
+            client = client['name'],
+            task = task['name'],
+            note = note,
+            hours = hours,
+            indicator = '+'
+        )
 
-def set_alias(client, client_id, task_id):
+
+def set_alias(client, client_id, task, task_id):
     print '''Would you like to store this client and project as an alias?
     Storing as an alias lets you easily add entries to this project with:
     harvest add <alias> <hours> <note>
@@ -54,6 +62,8 @@ def set_alias(client, client_id, task_id):
         config.add_section(alias)
         config.set(alias, 'client', client_id)
         config.set(alias, 'task', task_id)
+        config.set(alias, 'clientname', client)
+        config.set(alias, 'taskname', task)
         with open (os.path.expanduser('~/.harvconfig'), 'wb') as configfile:
                 config.write(configfile)
 
