@@ -1,4 +1,4 @@
-import config
+import ConfigParser
 
 config = ConfigParser.RawConfigParser()
 config.read('~/.harvconfig')
@@ -13,7 +13,7 @@ def add(timesheet, alias, hours=False, note=False):
             try:
                 hours = int(raw_input("How many hours for this entry? "))
             except:
-                hours = int(raw_input( "Didn't get that - input the number of hours: ")
+                hours = int(raw_input( "Didn't get that - input the number of hours: "))
         if not note:
             note = raw_input("Leave a note? (optional) ")
         for key, value in enumerate(today['projects']):
