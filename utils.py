@@ -47,9 +47,10 @@ def get_int(prompt):
     parsed = False
     while parsed == False:
         try:
-            answer = raw_input(prompt)
+            answer = int(raw_input(prompt))
             parsed = True
         except ValueError:
             print 'Invalid value!'
 
     return answer
+

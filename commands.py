@@ -12,7 +12,7 @@ def add(timesheet, alias, hours=False, note=False):
         if not hours:
             hours = get_int("How many hours to enter? ")
         if not note:
-            note = get_int("Leave a note? (optional) ")
+            note = raw_input("Leave a note? (optional) ")
         for key, value in enumerate(today['projects']):
             print key + 1, value['name']
 
