@@ -43,4 +43,9 @@ def get_timesheet():
     harvest = Harvest(URI, USERNAME, PASSWORD)
     return harvest 
 
-
+def get_input(prompt1, prompt2):
+    try:
+        answer = raw_input(prompt1)
+    except ValueError:
+        answer = raw_input(prompt2)
+    return answer
