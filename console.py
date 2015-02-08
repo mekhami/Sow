@@ -22,19 +22,20 @@ import ConfigParser
 from utils import set_credentials, get_credentials, get_timesheet
 from harvest import Harvest
 from commands import add
+from utils import get_timesheet, get_config
 import os
-
-
-parser = docopt(__doc__)
-
-if parser['add']:
-    if parser['<alias>']:
-        add(get_timesheet(), parser['<alias>'], parser['<hours>'], parser['<note>'])
-    else:
-        add(get_timesheet(), False)
 
 #NOTES
 #Submit Timesheet for Approval
 #Timer Integration? Does anyone use this?
 #Show Weekly Timesheet
+def main(args, config, timesheet):
+     if args['add']:
+         add(args, config, timesheet)
+         
+if __name__ == '__main__':
+    args = docopt(__doc__)
+    config = get_config() 
+    timesheet = get_timesheet(config)
+    main(args, config, timesheet)
 

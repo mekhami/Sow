@@ -12,13 +12,13 @@ STATUS_TASK_FORMAT = '''{indicator}   Project:    {client}
     Time:       {hours}
     '''
 
-def add(timesheet, alias, hours=False, note=False):
+def add(args, config, timesheet):
     today = timesheet.today
-    if alias:
-        client_id = config.get(alias, 'client')
-        task_id = config.get(alias, 'task')
-    if not alias:
-        if not hours:
+    if args['<alias>']:
+        client_id = config.get(args['<alias>'], 'client')
+        task_id = config.get(['<alias>'], 'task')
+    if not args['<alias>']:
+        if not args['<hours>']:
             hours = get_int("How many hours to enter? ")
         for key, value in enumerate(today['projects']):
             print key + 1, value['name']
@@ -34,7 +34,7 @@ def add(timesheet, alias, hours=False, note=False):
         task = client['tasks'][task_selection-1]
         task_id = task['id']
 
-        if not note:
+        if not args['<note>']:
             note = raw_input("Leave a note? (optional) ")
 
         set_alias(client['name'], client_id, task['name'], task_id)

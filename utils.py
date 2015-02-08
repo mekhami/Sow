@@ -5,11 +5,13 @@ import keyring
 import os
 from harvest import Harvest
 
-config = ConfigParser.RawConfigParser()
-config.read(os.path.expanduser('~/.harvconfig'))
 
-def set_credentials():
-    global config
+def get_config():
+    config = ConfigParser.RawConfigParser()
+    config.read(os.path.expanduser('~/.harvconfig'))
+    return config
+
+def set_credentials(config):
     print '''PyHarvest needs your username and password to authenticate to Harvest. 
     Your username will be stored in a config file, and password stored in your system's keyring.
     This information will not be communicated anywhere other than your file system and Harvest.'''
@@ -21,26 +23,24 @@ def set_credentials():
     config.set('Harvest', 'Username', username)
     config.set('Harvest', 'URI', URI)
     keyring.set_password("Harvest", username, password)
-    print "hello"
+
     with open(os.path.expanduser('~/.harvconfig'), 'wb') as configfile:
         config.write(configfile)
-    print "goodbye"
 
     return (URI, username, password)
 
-def get_credentials():
-    global config
+def get_credentials(config):
     username = config.get('Harvest', 'Username')
     password = keyring.get_password("Harvest", username)
     URI = config.get('Harvest', 'uri')
 
     return URI, username, password
 
-def get_timesheet():
+def get_timesheet(config):
     try:
-        URI, USERNAME, PASSWORD = get_credentials()
-    except:
-        URI, USERNAME, PASSWORD = set_credentials()
+        URI, USERNAME, PASSWORD = get_credentials(config)
+    except ConfigParser.NoSectionError:
+        URI, USERNAME, PASSWORD = set_credentials(config)
 
     harvest = Harvest(URI, USERNAME, PASSWORD)
     return harvest 
