@@ -22,10 +22,10 @@ import ConfigParser
 from utils import set_credentials, get_credentials, get_timesheet
 from harvest import Harvest
 from commands import add
-parser = docopt(__doc__)
+import os
 
-config = ConfigParser.RawConfigParser()
-config.read('~/.harvconfig')
+
+parser = docopt(__doc__)
 
 if parser['add']:
     if parser['<alias>']:

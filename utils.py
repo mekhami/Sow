@@ -21,14 +21,16 @@ def set_credentials():
     config.set('Harvest', 'Username', username)
     config.set('Harvest', 'URI', URI)
     keyring.set_password("Harvest", username, password)
+    print "hello"
     with open(os.path.expanduser('~/.harvconfig'), 'wb') as configfile:
         config.write(configfile)
+    print "goodbye"
 
     return (URI, username, password)
 
 def get_credentials():
     global config
-    username = config.get('Harvest', 'username')
+    username = config.get('Harvest', 'Username')
     password = keyring.get_password("Harvest", username)
     URI = config.get('Harvest', 'uri')
 

@@ -6,7 +6,6 @@ import os
 config = ConfigParser.RawConfigParser()
 config.read(os.path.expanduser('~/.harvconfig'))
 
-
 STATUS_TASK_FORMAT = '''{indicator}   Project:    {client}
     Task:       {task}
     Notes:      {note}
@@ -21,8 +20,6 @@ def add(timesheet, alias, hours=False, note=False):
     if not alias:
         if not hours:
             hours = get_int("How many hours to enter? ")
-        if not note:
-            note = raw_input("Leave a note? (optional) ")
         for key, value in enumerate(today['projects']):
             print key + 1, value['name']
 
@@ -36,6 +33,9 @@ def add(timesheet, alias, hours=False, note=False):
         task_selection = int(get_int("Select a task: "))
         task = client['tasks'][task_selection-1]
         task_id = task['id']
+
+        if not note:
+            note = raw_input("Leave a note? (optional) ")
 
         set_alias(client['name'], client_id, task['name'], task_id)
 
@@ -65,5 +65,5 @@ def set_alias(client, client_id, task, task_id):
         config.set(alias, 'clientname', client)
         config.set(alias, 'taskname', task)
         with open (os.path.expanduser('~/.harvconfig'), 'wb') as configfile:
-                config.write(configfile)
+            config.write(configfile)
 
