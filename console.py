@@ -7,10 +7,9 @@
 Usage:
     console.py [options]
     console.py add [(<alias> <hours> <note>)]
-    console.py start [project] [task]
-    console.py stop <number> <note>
-    console.py reauth <username> <password>
     console.py show ([today|yesterday|week] | --date <date>)
+    console.py reauth
+
 
 Options:
   -h --help          Show this screen.
@@ -19,7 +18,7 @@ Options:
 
 from docopt import docopt
 from commands import add, show
-from utils import get_timesheet, get_config
+from utils import get_timesheet, get_config, reauth
 
 
 # NOTES
@@ -32,6 +31,8 @@ def main(args, config, timesheet):
         add(args, config, timesheet)
     if args['show']:
         show(args, timesheet)
+    if args['reauth']:
+        reauth(config)
 
 if __name__ == '__main__':
     args = docopt(__doc__)

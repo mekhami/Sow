@@ -24,6 +24,21 @@ def set_credentials():
 
     return (URI, username, password)
 
+def reauth(config):
+    username = raw_input("Username: ")
+    password = getpass.getpass()
+    config.remove_option('Harvest', 'Username')
+    config.set('Harvest', 'Username', username)
+    with open(os.path.expanduser('~/.harvconfig'), 'wb') as configfile:
+        config.write(configfile)
+        
+    try:
+        keyring.delete_password('Harvest', username)
+    except keyring.errors.PasswordDeleteError:
+        pass
+    keyring.set_password('Harvest', username, password)
+    print "Harvest login information changed."
+
 def get_credentials():
     config = get_config()
     username = config.get('Harvest', 'Username')

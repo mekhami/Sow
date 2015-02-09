@@ -1,7 +1,6 @@
 from utils import get_int, config_write
 from datetime import *
 from dateutil.parser import parse
-from pprint import pprint
 
 
 STATUS_TASK_FORMAT = '''{indicator}   Project:    {client}
@@ -17,8 +16,11 @@ def add(args, config, timesheet):
     if args['<alias>']:
         client_id = config.get(args['<alias>'], 'client')
         client_name = config.get(args['<alias>'], 'clientname')
-        task_id = config.get(['<alias>'], 'task')
-        task_name = config.get(['<alias>'], 'taskname')
+        task_id = config.get(args['<alias>'], 'task')
+        task_name = config.get(args['<alias>'], 'taskname')
+        note = args['<note>']
+        hours = args['<hours>']
+
         data = {"notes": args['<note>'], "project_id": client_id, "hours": args['<hours>'], "task_id": task_id}
 
     if not args['<alias>']:
@@ -57,6 +59,7 @@ def add(args, config, timesheet):
             task = task_name,
             note = note,
             hours = hours,
+            date = datetime.today(),
             indicator = '+'
         )
 
