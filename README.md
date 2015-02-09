@@ -1,6 +1,11 @@
 <h1>Sow</h1>
 <h2>A Harvest Command Line Application</h2>
 Sow is a command-line application for use with the Harvest Time Tracking API. It relies on the <a href="https://github.com/lionheart/python-harvest">Python Harvest API</a> by the folks over at Lionheart.
+<h2>Installation</h2>
+```
+pip install git+https://github.com/mekhami/Sow
+```
+That's it. (Note: This will eventually be redistributed via PyPi)
 
 <h2>Add a Timesheet Entry</h2>
 There are two ways to add an entry to Harvest. The first, before you make your first entry and are able to save an alias, is:
