@@ -53,6 +53,5 @@ def get_int(prompt):
             parsed = True
         except ValueError:
             print 'Invalid value!'
-
     return answer
 

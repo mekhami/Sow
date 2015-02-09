@@ -18,17 +18,14 @@ Options:
 '''
 
 from docopt import docopt
-import ConfigParser
-from utils import set_credentials, get_credentials, get_timesheet
-from harvest import Harvest
 from commands import add
 from utils import get_timesheet, get_config
-import os
 
 #NOTES
 #Submit Timesheet for Approval
 #Timer Integration? Does anyone use this?
 #Show Weekly Timesheet
+
 def main(args, config, timesheet):
      if args['add']:
          add(args, config, timesheet)
