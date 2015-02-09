@@ -1,4 +1,3 @@
-#Simple function for saving a users information in a configfile.
 import ConfigParser
 import getpass
 import keyring
