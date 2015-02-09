@@ -22,13 +22,7 @@ from docopt import docopt
 from commands import add, show
 from utils import get_timesheet, get_config, reauth
 
-
-# NOTES
-# Submit Timesheet for Approval
-# Timer Integration? Does anyone use this?
-# Show Weekly Timesheet
-
-def main(args, config, timesheet):
+def _main(args, config, timesheet):
     if args['add']:
         add(args, config, timesheet)
     if args['show']:
@@ -36,9 +30,9 @@ def main(args, config, timesheet):
     if args['reauth']:
         reauth(config)
 
-if __name__ == '__main__':
+def main():
     args = docopt(__doc__)
     config = get_config() 
     timesheet = get_timesheet()
-    main(args, config, timesheet)
+    _main(args, config, timesheet)
 
