@@ -31,7 +31,7 @@ def reauth(config):
     config.set('Harvest', 'Username', username)
     with open(os.path.expanduser('~/.harvconfig'), 'wb') as configfile:
         config.write(configfile)
-        
+
     try:
         keyring.delete_password('Harvest', username)
     except keyring.errors.PasswordDeleteError:

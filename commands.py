@@ -71,14 +71,14 @@ def show(args, timesheet):
         data = [today_response['day_entries']]
 
     if args['yesterday']:
-        yesterday = datetime.timetuple(today - datetime.timedelta(1))
+        yesterday = datetime.timetuple(today - timedelta(1))
         yesterday_response = timesheet.get_day(yesterday[7], yesterday[0])
         data = [yesterday_response['day_entries']]
 
     if args['week']:
         data = []
         for i in range(0, 7):
-            day = datetime.timetuple(today - datetime.timedelta(i))
+            day = datetime.timetuple(today - timedelta(i))
             daily_response = timesheet.get_day(day[7], day[0])
             data.append(daily_response['day_entries'])
 
