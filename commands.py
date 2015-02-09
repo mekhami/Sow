@@ -1,5 +1,6 @@
 from utils import get_int, config_write
-from datetime import date, datetime, timedelta
+from datetime import *
+from dateutil.parser import parse
 from pprint import pprint
 
 
@@ -60,26 +61,28 @@ def add(args, config, timesheet):
         )
 
 def show(args, timesheet):
-    today = date.today()
+    today = datetime.today()
     if args['today']:
-        day = date.timetuple(today)
+        day = datetime.timetuple(today)
         today_response = timesheet.get_day(day[7], day[0])
         data = [today_response['day_entries']]
 
     if args['yesterday']:
-        yesterday = date.timetuple(today - timedelta(1))
+        yesterday = datetime.timetuple(today - datetime.timedelta(1))
         yesterday_response = timesheet.get_day(yesterday[7], yesterday[0])
         data = [yesterday_response['day_entries']]
 
     if args['week']:
         data = []
         for i in range(0, 7):
-            day = date.timetuple(today - timedelta(i))
+            day = datetime.timetuple(today - datetime.timedelta(i))
             daily_response = timesheet.get_day(day[7], day[0])
             data.append(daily_response['day_entries'])
 
     if args['--date']:
-        pass
+        date = datetime.timetuple(parse(args['<date>']))
+        date_response = timesheet.get_day(date[7], date[0])
+        data = [date_response['day_entries']]
 
     for sublist in data:
         for entry in sublist:
