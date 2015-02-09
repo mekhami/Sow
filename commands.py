@@ -1,10 +1,12 @@
 from utils import get_int, config_write
-import os
+from datetime import date, datetime, timedelta
+from pprint import pprint
 
 
 STATUS_TASK_FORMAT = '''{indicator}   Project:    {client}
     Task:       {task}
     Notes:      {note}
+    Date:       {date}
     Time:       {hours}
     '''
 
@@ -56,6 +58,40 @@ def add(args, config, timesheet):
             hours = hours,
             indicator = '+'
         )
+
+def show(args, timesheet):
+    today = date.today()
+    if args['today']:
+        day = date.timetuple(today)
+        today_response = timesheet.get_day(day[7], day[0])
+        data = [today_response['day_entries']]
+
+    if args['yesterday']:
+        yesterday = date.timetuple(today - timedelta(1))
+        yesterday_response = timesheet.get_day(yesterday[7], yesterday[0])
+        data = [yesterday_response['day_entries']]
+
+    if args['week']:
+        data = []
+        for i in range(0, 7):
+            day = date.timetuple(today - timedelta(i))
+            daily_response = timesheet.get_day(day[7], day[0])
+            data.append(daily_response['day_entries'])
+
+    if args['--date']:
+        pass
+
+    for sublist in data:
+        for entry in sublist:
+            print str.format(
+                STATUS_TASK_FORMAT,
+                task = entry['task'],
+                client = entry['client'],
+                note = entry['notes'],
+                hours = entry['hours'],
+                date = entry['spent_at'],
+                indicator = '='
+            )
 
 def set_alias(client, client_id, task, task_id):
     print '''Would you like to store this client and project as an alias?

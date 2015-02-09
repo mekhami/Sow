@@ -8,9 +8,9 @@ Usage:
     console.py [options]
     console.py add [(<alias> <hours> <note>)]
     console.py start [project] [task]
-    console.py stop <number>
+    console.py stop <number> <note>
     console.py reauth <username> <password>
-    console.py note <comment>
+    console.py show ([today|yesterday|week] | --date <date>)
 
 Options:
   -h --help          Show this screen.
@@ -18,7 +18,7 @@ Options:
 '''
 
 from docopt import docopt
-from commands import add
+from commands import add, show
 from utils import get_timesheet, get_config
 
 
@@ -30,7 +30,9 @@ from utils import get_timesheet, get_config
 def main(args, config, timesheet):
     if args['add']:
         add(args, config, timesheet)
-         
+    if args['show']:
+        show(args, timesheet)
+
 if __name__ == '__main__':
     args = docopt(__doc__)
     config = get_config() 
