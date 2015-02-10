@@ -17,6 +17,17 @@ sow add
 
 Simple as that, the application will guide you through the few steps required to make your timesheet entry. At the end of this process, it will prompt you to save an alias (more on that later).
 
+<h2>Delete a Timesheet Entry</h2>
+You can either delete all entries for each day, or select an entry from a list.
+```
+sow delete --all --date 2/10/15
+```
+or
+```
+sow delete --date 2/10/15
+```
+The former will confirm that you want to delete all the listed entries. The latter, you will select the number next to which entry you wish to delete.
+
 <h2>Show your Timesheet Entries</h2>
 To display an entry for today, type:
 ```
