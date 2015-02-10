@@ -16,7 +16,7 @@ def set_credentials():
     This information will not be communicated anywhere other than your file system and Harvest.'''
     username = raw_input("Username: ")
     password = getpass.getpass()
-    URI = "https://" + raw_input("What is the subdomain of your Harvest application?: ") + ".harvestapp.com"
+    URI = "https://" + raw_input("What is the subdomain of your Harvest application? (the 'foo' in http://foo.harvestapp.com'): ") + ".harvestapp.com"
 
     configdata = {'Username': username, 'URI': URI}
     config_write('Harvest', configdata)
