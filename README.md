@@ -48,7 +48,7 @@ sow add myclient 8 'i worked for myclient today!'
 
 <h1>In Development:</h1>
 1. Deleting Entries
-2. Submitting Timesheets for Verification (Reliant on Harvest's API)
+~~2. Submitting Timesheets for Verification~~ (Harvest API not supporting this in the near future.)
 3. Using Timers for entries.
 4. Administration tasks (managing clients, projects, etc)
 
