@@ -64,7 +64,7 @@ def get_int(prompt):
             parsed = True
         except ValueError:
             print 'Invalid value!'
-    return answer
+    return int(answer)
 
 def config_write(section, args):
     '''Requires section name as an argument and a dictonary with name: info pairs.

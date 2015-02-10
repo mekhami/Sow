@@ -1,6 +1,7 @@
 from utils import get_int, config_write
 from datetime import *
 from dateutil.parser import parse
+from harvest import HarvestError
 
 
 STATUS_TASK_FORMAT = '''{indicator}   Project:    {client}
@@ -31,14 +32,14 @@ def add(args, config, timesheet):
         #User selects a client from the list
         for key, value in enumerate(today['projects']):
             print key + 1, value['name']
-        client_selection = int(get_int("Select a project: "))
+        client_selection = get_int("Select a project: ")
         client = today['projects'][client_selection-1]
         client_name = client['name']
 
         #User selects a task from the client task list
         for key, task in enumerate(client['tasks']):
             print key + 1, task['name']
-        task_selection = int(get_int("Select a task: "))
+        task_selection = get_int("Select a task: ")
         task = client['tasks'][task_selection-1]
         task_name = task['name']
 
@@ -98,6 +99,52 @@ def show(args, timesheet):
                 date = entry['spent_at'],
                 indicator = '='
             )
+
+def delete(args, timesheet):
+    if args['<date>']:
+        day = datetime.timetuple(parse(args['<date>']))
+        date_response = timesheet.get_day(day[7], day[0])
+        data = [date_response['day_entries']]
+
+        for sublist in data:
+            for k, entry in enumerate(sublist):
+                print str.format(
+                    STATUS_TASK_FORMAT,
+                    task = entry['task'],
+                    client = entry['client'],
+                    note = entry['notes'],
+                    hours = entry['hours'],
+                    date = entry['spent_at'],
+                    indicator = k+1
+                )
+
+        if args['-a'] or args['--all']:
+            if raw_input("Confirm: Delete all entries for this date? ").lower() in 'yes':
+                for sublist in data:
+                    for entry in sublist:
+                        try:
+                            timesheet.delete(entry['id'])
+                        except HarvestError:
+                            print "All entries for " + args['<date>'] + " deleted."
+        else:
+            selection = get_int('Delete which entry? ') - 1
+            print str.format(
+                STATUS_TASK_FORMAT,
+                task = data[0][selection]['task'],
+                client = data[0][selection]['client'],
+                note = data[0][selection]['notes'],
+                hours = data[0][selection]['hours'],
+                date = data[0][selection]['spent_at'],
+                indicator = '-'
+            )
+            if raw_input("Confirm: Delete this entry? ").lower() in 'yes':
+                try:
+                    timesheet.delete(data[0][selection]['id'])
+                except:
+                    print 'Entry deleted.'
+            else:
+                print 'Deletion aborted.'
+
 
 def set_alias(client, client_id, task, task_id):
     print '''Would you like to store this client and project as an alias?

@@ -11,7 +11,7 @@ Usage:
     console.py add [(<alias> <hours> <note>)]
     console.py show ([today|yesterday|week] | --date <date>)
     console.py reauth
-
+    console.py delete [-a|--all] [(--date <date>)]
 
 Options:
   -h --help          Show this screen.
@@ -19,7 +19,7 @@ Options:
 '''
 
 from docopt import docopt
-from commands import add, show
+from commands import add, show, delete
 from utils import get_timesheet, get_config, reauth
 
 def _main(args, config, timesheet):
@@ -29,6 +29,8 @@ def _main(args, config, timesheet):
         show(args, timesheet)
     if args['reauth']:
         reauth(config)
+    if args['delete']:
+        delete(args, timesheet)
 
 def main():
     args = docopt(__doc__)
