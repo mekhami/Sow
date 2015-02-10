@@ -1,1 +1,3 @@
 git+https://github.com/lionheart/python-harvest
+docopt
+keyring
