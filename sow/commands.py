@@ -91,7 +91,7 @@ def show(args, timesheet):
     if args['week']:
         data = []
         day = datetime.timetuple(today)
-        for i in range(get_week(), day[7]):
+        for i in range(get_week(), day[7]+1):
             daily_response = timesheet.get_day(i, day[0])
             data.append(daily_response['day_entries'])
 
