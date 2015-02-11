@@ -72,7 +72,7 @@ def add(args, config, timesheet):
             task = task_name,
             note = note,
             hours = hours,
-            date = date['spent_at'],
+            date = date,
             indicator = '+'
         )
 
