@@ -14,6 +14,7 @@ There are two ways to add an entry to Harvest. The first, before you make your f
 ```
 sow add
 ```
+You can specify the date that you wish to add an entry for with -d <date> or --date <date>.
 
 Simple as that, the application will guide you through the few steps required to make your timesheet entry. At the end of this process, it will prompt you to save an alias (more on that later).
 
