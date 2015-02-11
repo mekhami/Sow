@@ -134,10 +134,7 @@ def delete(args, timesheet):
             if raw_input("Confirm: Delete all entries for this date? ").lower() in 'yes':
                 for sublist in data:
                     for entry in sublist:
-                        try:
-                            timesheet.delete(entry['id'])
-                        except HarvestError:
-                            print "All entries for " + args['<date>'] + " deleted."
+                        timesheet.delete(entry['id'])
         else:
             selection = get_int('Delete which entry? ') - 1
             print str.format(
