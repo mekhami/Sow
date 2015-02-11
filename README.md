@@ -1,6 +1,6 @@
 <h1>Sow</h1>
 <h2>A Harvest Command Line Application</h2>
-Sow is a command-line application for use with the Harvest Time Tracking API. It relies on the <a href="https://github.com/lionheart/python-harvest">Python Harvest API</a> by the folks over at Lionheart.
+Sow is a command-line application for use with the Harvest Time Tracking API. It relies on the <a href="https://github.com/lionheart/python-harvest">Python Harvest API</a> by the folks over at Lionheart. It also takes direct inspiration (and possibly some code snippets) from the <a href="https://github.com/jakebasile/Reap">Reap</a> command line application for Harvest, also written in Python.
 
 Sow is currently based on Python 2.7, but in the future will be ported to 3.4
 <h2>Installation</h2>
