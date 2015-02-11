@@ -8,10 +8,10 @@
 
 Usage:
     console.py [options]
-    console.py add [(<alias> <hours> <note>)]
+    console.py add [(<alias> <hours> <note>)] [-d|--date <date>]
     console.py show ([today|yesterday|week] | --date <date>)
     console.py reauth
-    console.py delete [-a|--all] [(--date <date>)]
+    console.py delete [-a|--all] [(-d|--date <date>)]
 
 Options:
   -h --help          Show this screen.

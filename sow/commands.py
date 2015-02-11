@@ -2,6 +2,8 @@ from utils import get_int, config_write
 from datetime import *
 from dateutil.parser import parse
 from harvest import HarvestError
+import ConfigParser
+import sys
 
 
 STATUS_TASK_FORMAT = '''{indicator}   Project:    {client}
@@ -15,14 +17,18 @@ def add(args, config, timesheet):
     today = timesheet.today
 
     if args['<alias>']:
-        client_id = config.get(args['<alias>'], 'client')
-        client_name = config.get(args['<alias>'], 'clientname')
-        task_id = config.get(args['<alias>'], 'task')
-        task_name = config.get(args['<alias>'], 'taskname')
-        note = args['<note>']
-        hours = args['<hours>']
+        try:
+            client_id = config.get(args['<alias>'], 'client')
+            client_name = config.get(args['<alias>'], 'clientname')
+            task_id = config.get(args['<alias>'], 'task')
+            task_name = config.get(args['<alias>'], 'taskname')
+            note = args['<note>']
+            hours = args['<hours>']
 
-        data = {"notes": args['<note>'], "project_id": client_id, "hours": args['<hours>'], "task_id": task_id}
+            data = {"notes": args['<note>'], "project_id": client_id, "hours": args['<hours>'], "task_id": task_id}
+        except ConfigParser.NoSectionError:
+            print "No alias named " + args['<alias>'] + " found."
+            sys.exit()
 
     if not args['<alias>']:
         #Get the number of hours
@@ -52,6 +58,12 @@ def add(args, config, timesheet):
 
         data = {"notes": note, "project_id":client['id'], "hours":hours, "task_id":task['id']}
 
+    if args['--date'] or args['-d']:
+        date = {'spent_at': parse(args['<date>'])}
+        data.update(date)
+    else:
+        date = datetime.today()
+
     timesheet.add(data)
     print "Your entry has been saved."
     print str.format(
@@ -60,7 +72,7 @@ def add(args, config, timesheet):
             task = task_name,
             note = note,
             hours = hours,
-            date = datetime.today(),
+            date = date['spent_at'],
             indicator = '+'
         )
 
