@@ -3,6 +3,8 @@ import getpass
 import keyring
 import os
 from harvest import Harvest
+from dateutil.parser import parse
+from datetime import *
 
 
 def get_config():
@@ -75,3 +77,10 @@ def config_write(section, args):
         config.set(section, key, value)
     with open(os.path.expanduser('~/.harvconfig'), 'ab+') as configfile:
         config.write(configfile)
+
+def get_week():
+    today = datetime.today()
+    weekday = datetime.timetuple(today)[6]
+    yearday = datetime.timetuple(today)[7]
+    return yearday - weekday
+

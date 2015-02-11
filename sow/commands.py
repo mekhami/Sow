@@ -1,7 +1,7 @@
-from utils import get_int, config_write
-from datetime import *
+from utils import get_int, config_write, get_week
 from dateutil.parser import parse
 from harvest import HarvestError
+from datetime import *
 import ConfigParser
 import sys
 
@@ -90,9 +90,9 @@ def show(args, timesheet):
 
     if args['week']:
         data = []
-        for i in range(0, 7):
-            day = datetime.timetuple(today - timedelta(i))
-            daily_response = timesheet.get_day(day[7], day[0])
+        day = datetime.timetuple(today)
+        for i in range(get_week(), day[7]):
+            daily_response = timesheet.get_day(i, day[0])
             data.append(daily_response['day_entries'])
 
     if args['--date']:
