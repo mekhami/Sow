@@ -19,7 +19,7 @@ You can specify the date that you wish to add an entry for with -d <date> or --d
 Simple as that, the application will guide you through the few steps required to make your timesheet entry. At the end of this process, it will prompt you to save an alias (more on that later).
 
 <h2>Delete a Timesheet Entry</h2>
-You can either delete all entries for each day, or select an entry from a list.
+You can either delete all entries for the selected date, or select an entry from a list.
 ```
 sow delete --all --date 2/10/15
 ```
