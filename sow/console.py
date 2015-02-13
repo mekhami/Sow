@@ -7,11 +7,11 @@
 '''Harvest.
 
 Usage:
-    console.py [options]
-    console.py add [(<alias> <hours> <note>)] [-d|--date <date>]
-    console.py show ([today|yesterday|week] | --date <date>)
-    console.py reauth
-    console.py delete [-a|--all] [(-d|--date <date>)]
+    sow [options]
+    sow add [(<alias> <hours> <note>)] [-d|--date <date>]
+    sow show (today|yesterday|week | --date <date>)
+    sow reauth
+    sow delete [-a|--all] [(-d|--date <date>)]
 
 Options:
   -h --help          Show this screen.

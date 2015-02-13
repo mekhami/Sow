@@ -78,6 +78,7 @@ def add(args, config, timesheet):
 
 def show(args, timesheet):
     today = datetime.today()
+
     if args['today']:
         day = datetime.timetuple(today)
         today_response = timesheet.get_day(day[7], day[0])

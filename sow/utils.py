@@ -5,6 +5,7 @@ import os
 from harvest import Harvest
 from dateutil.parser import parse
 from datetime import *
+import sys
 
 
 def get_config():
@@ -29,8 +30,13 @@ def set_credentials():
 def reauth(config):
     username = raw_input("Username: ")
     password = getpass.getpass()
+    URI = "https://" + raw_input("What is the subdomain of your Harvest application? (the 'foo' in http://foo.harvestapp.com'): ") + ".harvestapp.com"
+
     config.remove_option('Harvest', 'Username')
+    config.remove_option('Harvest', 'URI')
     config.set('Harvest', 'Username', username)
+    config.set('Harvest', 'URI', subdomain)
+
     with open(os.path.expanduser('~/.harvconfig'), 'wb') as configfile:
         config.write(configfile)
 
