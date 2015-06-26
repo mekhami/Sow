@@ -101,17 +101,20 @@ def show(args, timesheet):
         date_response = timesheet.get_day(date[7], date[0])
         data = [date_response['day_entries']]
 
-    for sublist in data:
-        for entry in sublist:
-            print str.format(
-                STATUS_TASK_FORMAT,
-                task = entry['task'],
-                client = entry['client'],
-                note = entry['notes'],
-                hours = entry['hours'],
-                date = entry['spent_at'],
-                indicator = '='
-            )
+    if data:
+        for sublist in data:
+            for entry in sublist:
+                print str.format(
+                    STATUS_TASK_FORMAT,
+                    task = entry['task'],
+                    client = entry['client'],
+                    note = entry['notes'],
+                    hours = entry['hours'],
+                    date = entry['spent_at'],
+                    indicator = '='
+                )
+    else:
+        print "No data found."
 
 def delete(args, timesheet):
     if args['<date>']:
